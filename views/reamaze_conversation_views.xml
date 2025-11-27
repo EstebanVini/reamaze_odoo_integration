@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_reamaze_conversation_form" model="ir.ui.view">
+        <field name="name">reamaze.conversation.form</field>
+        <field name="model">reamaze.conversation</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="subject"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="created_at_reamaze"/>
+                            <field name="category_name"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="slug"/>
+                            <field name="perma_url" widget="url"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenido">
+                            <field name="body"/>
+                        </page>
+                        <page string="Información Adicional">
+                            <group>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="follower_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="email"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_reamaze_conversation_tree" model="ir.ui.view">
+        <field name="name">reamaze.conversation.tree</field>
+        <field name="model">reamaze.conversation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="created_at_reamaze"/>
+                <field name="subject"/>
+                <field name="category_name"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_reamaze_conversations" model="ir.actions.act_window">
+        <field name="name">Conversaciones Reamaze</field>
+        <field name="res_model">reamaze.conversation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_reamaze_root" name="Reamaze Integration" sequence="10"/>
+    <menuitem id="menu_reamaze_conversations" parent="menu_reamaze_root" action="action_reamaze_conversations" sequence="10"/>
+</odoo>

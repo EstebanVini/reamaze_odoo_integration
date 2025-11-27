@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_reamaze_conversation,reamaze.conversation,model_reamaze_conversation,base.group_user,1,1,1,1
+access_reamaze_tag,reamaze.conversation.tag,model_reamaze_conversation_tag,base.group_user,1,1,1,1
+access_reamaze_follower,reamaze.conversation.follower,model_reamaze_conversation_follower,base.group_user,1,1,1,1
