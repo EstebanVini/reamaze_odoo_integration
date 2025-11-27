@@ -20,7 +20,13 @@ class ReamazeConversation(models.Model):
     perma_url = fields.Char(string="URL Permanente")
     category_name = fields.Char(string="Categoría")
 
-    # Relaciones construidas a partir de los otros archivos
+    # --- NUEVOS CAMPOS QUE FALTABAN ---
+    author_name = fields.Char(string="Nombre Autor")
+    author_email = fields.Char(string="Email Autor")
+    author_mobile = fields.Char(string="Móvil Autor")
+    # ----------------------------------
+
+    # Relaciones
     tag_ids = fields.Many2many(
         'reamaze.conversation.tag', 
         string="Etiquetas"
