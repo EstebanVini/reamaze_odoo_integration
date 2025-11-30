@@ -88,6 +88,9 @@ class ReamazeLeadGenerationService(models.AbstractModel):
                      vals['phone_mobile_search'] = conv.author_mobile
                 elif 'x_phone_mobile_search' in Lead._fields:
                      vals['x_phone_mobile_search'] = conv.author_mobile
+                
+                if conv.author_mobile:
+                    vals['x_link_whatsapp'] = f"https://wa.me/{conv.author_mobile}"
 
                 # --- CREACIÓN DEL LEAD ---
                 new_lead = Lead.create(vals)
