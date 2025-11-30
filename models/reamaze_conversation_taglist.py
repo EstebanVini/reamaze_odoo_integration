@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models # type: ignore
 
 class ReamazeTag(models.Model):
     _name = 'reamaze.conversation.tag'
