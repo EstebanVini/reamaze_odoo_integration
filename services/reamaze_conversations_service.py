@@ -98,6 +98,11 @@ class ReamazeConversationsService(models.AbstractModel):
         
         _logger.info(f"Reamaze: Sincronización finalizada. Total procesados: {total_imported}")
 
+        # --- NUEVO: Disparar generación de leads al terminar ---
+        if total_imported > 0:
+            _logger.info("Reamaze: Iniciando generación automática de Leads...")
+            self.env['reamaze.lead.generation.service'].run_lead_generation()
+
     def _process_single_conversation(self, item):
         """ Lógica de guardado para el modelo extendido """
         Conversation = self.env['reamaze.conversation']

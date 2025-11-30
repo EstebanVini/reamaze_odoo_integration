@@ -1,39 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_reamaze_conversation_form" model="ir.ui.view">
         <field name="name">reamaze.conversation.form</field>
         <field name="model">reamaze.conversation</field>
         <field name="arch" type="xml">
-            <form create="false" edit="false">
+            <form string="Conversación Reamaze">
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="subject"/></h1>
+                        <label for="subject" class="oe_edit_only"/>
+                        <h1><field name="subject" readonly="1" placeholder="Asunto"/></h1>
+                        <h3><field name="display_subject" readonly="1"/></h3>
                     </div>
+                    
                     <group>
-                        <group>
-                            <field name="created_at_reamaze"/>
-                            <field name="category_name"/>
-                            <field name="status"/>
+                        <group string="Información General">
+                            <field name="slug" readonly="1"/>
+                            <field name="origin" readonly="1"/>
+                            <field name="status" readonly="1"/>
+                            <field name="message_count" readonly="1"/>
+                            <field name="perma_url" widget="url" readonly="1"/>
+                            <field name="hold_until" readonly="1"/>
                         </group>
-                        <group>
-                            <field name="slug"/>
-                            <field name="perma_url" widget="url"/>
+                        <group string="Fechas">
+                            <field name="created_at_reamaze" readonly="1"/>
+                            <field name="updated_at_reamaze" readonly="1"/>
                         </group>
                     </group>
+
                     <notebook>
-                        <page string="Contenido">
-                            <field name="body"/>
-                        </page>
-                        <page string="Información Adicional">
-                            <group>
-                                <field name="tag_ids" widget="many2many_tags"/>
-                                <field name="follower_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="email"/>
-                                    </tree>
-                                </field>
+                        <page string="Contenido y Mensajes">
+                            <group string="Mensaje Principal">
+                                <field name="body" readonly="1"/>
                             </group>
+                            <group string="Detalles del Mensaje">
+                                <field name="message_body" readonly="1"/>
+                                <field name="message_origin_id" readonly="1"/>
+                            </group>
+                            
+                            <separator string="Últimas Interacciones"/>
+                            <group>
+                                <group string="Último Mensaje Cliente">
+                                    <field name="last_customer_message_body" readonly="1"/>
+                                    <field name="last_customer_message_created_at" readonly="1"/>
+                                </group>
+                                <group string="Último Mensaje Staff">
+                                    <field name="last_staff_message_body" readonly="1"/>
+                                    <field name="last_staff_message_created_at" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Participantes">
+                            <group>
+                                <group string="Autor (Cliente)">
+                                    <field name="author_name" readonly="1"/>
+                                    <field name="author_email" widget="email" readonly="1"/>
+                                    <field name="author_mobile" widget="phone" readonly="1"/>
+                                    <field name="author_id" readonly="1"/>
+                                    <field name="author_friendly_name" readonly="1"/>
+                                    <field name="author_display_name" readonly="1"/>
+                                    
+                                    <label for="author_twitter" string="Redes Sociales"/>
+                                    <div class="o_row">
+                                        <i class="fa fa-twitter" title="Twitter"/> <field name="author_twitter" readonly="1" class="mr-2"/>
+                                        <i class="fa fa-facebook" title="Facebook"/> <field name="author_facebook" readonly="1" class="mr-2"/>
+                                        <i class="fa fa-instagram" title="Instagram"/> <field name="author_instagram" readonly="1"/>
+                                    </div>
+                                    
+                                    <field name="author_data" groups="base.group_no_one" readonly="1"/>
+                                </group>
+
+                                <group string="Agente Asignado (Staff)">
+                                    <field name="assignee_name" readonly="1"/>
+                                    <field name="assignee_email" widget="email" readonly="1"/>
+                                    <field name="assignee_mobile" widget="phone" readonly="1"/>
+                                    <field name="assignee_id" readonly="1"/>
+                                    <field name="assignee_friendly_name" readonly="1"/>
+                                    <field name="assignee_display_name" readonly="1"/>
+
+                                    <label for="assignee_twitter" string="Redes Sociales"/>
+                                    <div class="o_row">
+                                        <i class="fa fa-twitter" title="Twitter"/> <field name="assignee_twitter" readonly="1" class="mr-2"/>
+                                        <i class="fa fa-facebook" title="Facebook"/> <field name="assignee_facebook" readonly="1" class="mr-2"/>
+                                        <i class="fa fa-instagram" title="Instagram"/> <field name="assignee_instagram" readonly="1"/>
+                                    </div>
+
+                                    <field name="assignee_data" groups="base.group_no_one" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Categoría y Clasificación">
+                            <group>
+                                <group string="Detalles de Categoría">
+                                    <field name="category_name" readonly="1"/>
+                                    <field name="category_slug" readonly="1"/>
+                                    <field name="category_email" widget="email" readonly="1"/>
+                                    <field name="category_channel" readonly="1"/>
+                                    <field name="category_settings_display_html_email" readonly="1"/>
+                                </group>
+                                <group string="Etiquetas y Seguidores">
+                                    <field name="tag_ids" widget="many2many_tags" readonly="1"/>
+                                    <field name="follower_ids" readonly="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="email"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Datos Técnicos (JSON)" groups="base.group_no_one">
+                            <field name="data" readonly="1"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -45,13 +123,40 @@
         <field name="name">reamaze.conversation.tree</field>
         <field name="model">reamaze.conversation</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Conversaciones Reamaze" create="false" edit="false" delete="false">
                 <field name="created_at_reamaze"/>
                 <field name="subject"/>
+                <field name="author_name"/>
                 <field name="category_name"/>
-                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="assignee_name"/>
                 <field name="status"/>
+                <field name="message_count"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_reamaze_conversation_search" model="ir.ui.view">
+        <field name="name">reamaze.conversation.search</field>
+        <field name="model">reamaze.conversation</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Conversaciones">
+                <field name="subject"/>
+                <field name="slug"/>
+                <field name="author_name"/>
+                <field name="author_email"/>
+                <field name="assignee_name"/>
+                <field name="category_name"/>
+                <field name="tag_ids"/>
+                
+                <filter string="Mensajes Recientes" name="recent" domain="[('created_at_reamaze', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Categoría" name="group_by_category" context="{'group_by': 'category_name'}"/>
+                    <filter string="Asignado" name="group_by_assignee" context="{'group_by': 'assignee_name'}"/>
+                    <filter string="Estado" name="group_by_status" context="{'group_by': 'status'}"/>
+                    <filter string="Autor" name="group_by_author" context="{'group_by': 'author_name'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
@@ -59,8 +164,18 @@
         <field name="name">Conversaciones Reamaze</field>
         <field name="res_model">reamaze.conversation</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_reamaze_conversation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No se han encontrado conversaciones descargadas.
+            </p>
+            <p>
+                Asegúrate de configurar las credenciales y ejecutar la sincronización.
+            </p>
+        </field>
     </record>
 
-    <menuitem id="menu_reamaze_root" name="Reamaze Integration" sequence="10"/>
+    <menuitem id="menu_reamaze_root" name="Reamaze" sequence="10" web_icon="reamaze_odoo_integration,static/description/icon.png"/>
     <menuitem id="menu_reamaze_conversations" parent="menu_reamaze_root" action="action_reamaze_conversations" sequence="10"/>
+
 </odoo>

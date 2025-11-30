@@ -3,8 +3,8 @@
     'summary': "Integración avanzada con Reamaze API",
     'version': '17.0.1.0.0',
     'category': 'Services',
-    'author': "Odoo Expert",
-    'depends': ['base', 'mail'],
+    'author': "Esteban Viniegra | Pridecta",
+    'depends': ['base', 'mail', 'crm'],
     'data': [
         'security/ir.model.access.csv',
         'data/ir_cron.xml',
@@ -14,4 +14,5 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
+    'icon': 'static/description/icon.png',
 }

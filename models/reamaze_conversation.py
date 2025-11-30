@@ -66,6 +66,11 @@ class ReamazeConversation(models.Model):
     message_body = fields.Text(string="Cuerpo del Mensaje")
     message_origin_id = fields.Char(string="ID Origen del Mensaje")
     message_count = fields.Integer(string="Cantidad de Mensajes")
+    estado_creacion_lead = fields.Selection(
+        [('no_creado', 'No Creado'), ('creado', 'Creado'),('error', 'Error'),('omitido', 'Omitido'),('en_proceso', 'En Proceso')],
+        string="Estado de Creación del Lead",
+        default='no_creado'
+    )
 
 
     # Relaciones
@@ -78,6 +83,20 @@ class ReamazeConversation(models.Model):
         string="Seguidores"
     )
 
+    crm_lead_id = fields.Many2one(
+        'crm.lead', 
+        string="Lead Asociado"
+    )
+
     _sql_constraints = [
         ('slug_uniq', 'unique (slug)', 'El slug debe ser único.')
     ]
+
+    def action_generate_lead(self):
+        """ Botón manual para generar lead """
+        self.ensure_one()
+        service = self.env['reamaze.lead.generation.service']
+        # Forzamos el estado para que el servicio lo procese
+        if self.estado_creacion_lead != 'creado':
+            self.write({'estado_creacion_lead': 'no_creado'})
+            service.run_lead_generation()
