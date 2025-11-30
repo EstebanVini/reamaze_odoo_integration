@@ -60,6 +60,9 @@ class ReamazeConversation(models.Model):
     last_customer_message_body = fields.Text(string="Cuerpo del Último Mensaje del Cliente")
     last_customer_message_created_at = fields.Datetime(string="Creado en del Último Mensaje del Cliente")
 
+    last_staff_message_body = fields.Text(string="Cuerpo del Último Mensaje del Staff")
+    last_staff_message_created_at = fields.Datetime(string="Creado en del Último Mensaje del Staff")
+
     message_body = fields.Text(string="Cuerpo del Mensaje")
     message_origin_id = fields.Char(string="ID Origen del Mensaje")
     message_count = fields.Integer(string="Cantidad de Mensajes")
