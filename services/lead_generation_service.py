@@ -91,6 +91,7 @@ class ReamazeLeadGenerationService(models.AbstractModel):
                     'x_origen': primer_tag,
                     'x_procedencia': 'vifac_nacional',
                     'x_titulo_conversacion': conv.subject or 'Sin Asunto',
+                    'x_validacion_datos': 'proceso'
                 }
 
                 # Intento de asignar al campo Phone Mobile Search si existe en tu BD
