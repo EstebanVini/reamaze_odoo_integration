@@ -19,6 +19,10 @@
                             <field name="message_count" readonly="1"/>
                             <field name="perma_url" widget="url" readonly="1"/>
                             <field name="hold_until" readonly="1"/>
+                            <field name="crm_lead_id" readonly="1"/>
+                            <field name="tag_ids" widget="many2many_tags" readonly="1"/>
+                            <field name="estado_creacion_lead" widget="badge" decoration-success="estado_creacion_lead == 'creado'" decoration-danger="estado_creacion_lead == 'error'" decoration-muted="estado_creacion_lead in ('no_creado', 'omitido', 'en_proceso')" readonly="1"/>
+
                         </group>
                         <group string="Fechas">
                             <field name="created_at_reamaze" readonly="1"/>
@@ -98,8 +102,8 @@
                                     <field name="category_channel" readonly="1"/>
                                     <field name="category_settings_display_html_email" readonly="1"/>
                                 </group>
-                                <group string="Etiquetas y Seguidores">
-                                    <field name="tag_ids" widget="many2many_tags" readonly="1"/>
+                                <group string="Seguidores">
+                                    
                                     <field name="follower_ids" readonly="1">
                                         <tree>
                                             <field name="name"/>

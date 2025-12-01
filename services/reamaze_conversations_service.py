@@ -27,7 +27,7 @@ class ReamazeConversationsService(models.AbstractModel):
         # 1. Definir el Límite de Tiempo (Últimos 2 días)
         # Usamos una fecha "naive" (sin zona horaria) porque Odoo guarda así en BD
         lookback_days = 2
-        limit_date = datetime.utcnow() - timedelta(days=lookback_days)
+        limit_date = datetime.now() - timedelta(days=lookback_days)
         
         # Para la API, formatedamos la fecha como string ISO
         formatted_date_api = limit_date.strftime('%Y-%m-%dT%H:%M:%SZ')

@@ -17,7 +17,7 @@ class ReamazeLeadGenerationService(models.AbstractModel):
         # Procesamos en lotes de 50 para no saturar si hay muchas acumuladas
         conversations = Conversation.search([
             ('estado_creacion_lead', '=', 'no_creado')
-        ], limit=50)
+        ], limit=100)
 
         if not conversations:
             _logger.info("Reamaze Leads: No hay nada pendiente.")
@@ -45,6 +45,17 @@ class ReamazeLeadGenerationService(models.AbstractModel):
                     conv.write({'estado_creacion_lead': 'omitido'})
                     _logger.info(f"Reamaze: Lead omitido por tags {conv.slug}")
                     continue
+
+                # --- VERIFICAR DUPLICADOS POR x_reamaze_id ---
+                if conv.slug:
+                    existing_lead = Lead.search([('x_reamaze_id', '=', conv.slug)], limit=1)
+                    if existing_lead:
+                        conv.write({
+                            'estado_creacion_lead': 'creado',
+                            'crm_lead_id': existing_lead.id
+                        })
+                        _logger.info(f"Reamaze: Lead duplicado encontrado {existing_lead.id} para {conv.slug}")
+                        continue
 
                 # --- BÚSQUEDA DE CONTACTO (SIN CREAR) ---
                 partner_id = False

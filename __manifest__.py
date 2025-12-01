@@ -14,5 +14,5 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    'icon': 'static/description/icon.png',
+    'icon': 'reamaze_odoo_integration/static/description/icon.png',
 }
